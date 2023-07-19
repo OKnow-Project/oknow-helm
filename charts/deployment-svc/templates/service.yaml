@@ -1,9 +1,9 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "oknow-helm.fullname" . }}
+  name: {{ include "deployment-svc.fullname" . }}
   labels:
-    {{- include "oknow-helm.labels" . | nindent 4 }}
+    {{- include "deployment-svc.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
@@ -12,4 +12,4 @@ spec:
       protocol: TCP
       name: http
   selector:
-    {{- include "oknow-helm.selectorLabels" . | nindent 4 }}
+    {{- include "deployment-svc.selectorLabels" . | nindent 4 }}

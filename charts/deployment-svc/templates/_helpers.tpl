@@ -1,7 +1,7 @@
 {{/*
 Expand the name of the chart.
 */}}
-{{- define "oknow-helm.name" -}}
+{{- define "deployment-svc.name" -}}
 {{- default .Chart.Name .Values.nameOverride | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
@@ -10,7 +10,7 @@ Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name.
 */}}
-{{- define "oknow-helm.fullname" -}}
+{{- define "deployment-svc.fullname" -}}
 {{- if .Values.fullnameOverride }}
 {{- .Values.fullnameOverride | trunc 63 | trimSuffix "-" }}
 {{- else }}
@@ -26,16 +26,16 @@ If release name contains chart name it will be used as a full name.
 {{/*
 Create chart name and version as used by the chart label.
 */}}
-{{- define "oknow-helm.chart" -}}
+{{- define "deployment-svc.chart" -}}
 {{- printf "%s-%s" .Chart.Name .Chart.Version | replace "+" "_" | trunc 63 | trimSuffix "-" }}
 {{- end }}
 
 {{/*
 Common labels
 */}}
-{{- define "oknow-helm.labels" -}}
-helm.sh/chart: {{ include "oknow-helm.chart" . }}
-{{ include "oknow-helm.selectorLabels" . }}
+{{- define "deployment-svc.labels" -}}
+helm.sh/chart: {{ include "deployment-svc.chart" . }}
+{{ include "deployment-svc.selectorLabels" . }}
 {{- if .Chart.AppVersion }}
 app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
 {{- end }}
@@ -45,17 +45,17 @@ app.kubernetes.io/managed-by: {{ .Release.Service }}
 {{/*
 Selector labels
 */}}
-{{- define "oknow-helm.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "oknow-helm.name" . }}
+{{- define "deployment-svc.selectorLabels" -}}
+app.kubernetes.io/name: {{ include "deployment-svc.name" . }}
 app.kubernetes.io/instance: {{ .Release.Name }}
 {{- end }}
 
 {{/*
 Create the name of the service account to use
 */}}
-{{- define "oknow-helm.serviceAccountName" -}}
+{{- define "deployment-svc.serviceAccountName" -}}
 {{- if .Values.serviceAccount.create }}
-{{- default (include "oknow-helm.fullname" .) .Values.serviceAccount.name }}
+{{- default (include "deployment-svc.fullname" .) .Values.serviceAccount.name }}
 {{- else }}
 {{- default "default" .Values.serviceAccount.name }}
 {{- end }}
