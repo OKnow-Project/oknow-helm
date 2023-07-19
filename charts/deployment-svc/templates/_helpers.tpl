@@ -34,20 +34,16 @@ Create chart name and version as used by the chart label.
 Common labels
 */}}
 {{- define "deployment-svc.labels" -}}
-helm.sh/chart: {{ include "deployment-svc.chart" . }}
-{{ include "deployment-svc.selectorLabels" . }}
-{{- if .Chart.AppVersion }}
-app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-{{- end }}
-app.kubernetes.io/managed-by: {{ .Release.Service }}
+app: {{ .Values.appName }}
+version: {{ .Values.appVersion }}
 {{- end }}
 
 {{/*
 Selector labels
 */}}
 {{- define "deployment-svc.selectorLabels" -}}
-app.kubernetes.io/name: {{ include "deployment-svc.name" . }}
-app.kubernetes.io/instance: {{ .Release.Name }}
+app: {{ .Values.appName }}
+version: {{ .Values.appVersion }}
 {{- end }}
 
 {{/*
