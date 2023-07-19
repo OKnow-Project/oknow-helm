@@ -1,0 +1,14 @@
+apiVersion: v1
+entries:
+  deployment-svc:
+  - apiVersion: v2
+    appVersion: 1.16.0
+    created: "2023-07-19T11:19:25.07327308Z"
+    description: Used for create a simple microservice with one deployment and a service
+    digest: 7a2da46a3bdfef54f1595effc5ee4b285fd2f15f9ca5867028490cec5716d17b
+    name: deployment-svc
+    type: application
+    urls:
+    - https://github.com/OKnow-Project/oknow-helm/releases/download/deployment-svc-0.1.0/deployment-svc-0.1.0.tgz
+    version: 0.1.0
+generated: "2023-07-19T11:19:25.07328938Z"
