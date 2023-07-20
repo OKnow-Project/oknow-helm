@@ -57,6 +57,7 @@ pvc:
   name: ""
   storageClassName: ""
   storage: 1Gi
+  mountPath: ""
 
 autoscaling:
   enabled: false

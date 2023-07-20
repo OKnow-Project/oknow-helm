@@ -47,6 +47,11 @@ spec:
               port: http
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
+          {{- if .Values.pvc.enabled -}}
+          volumeMounts:
+          - name: "{{ .Values.appName }}-storage" 
+            mountPath: {{ .Values.pvc.mountPath }}
+          {{- end }}
       {{- with .Values.nodeSelector }}
       nodeSelector:
         {{- toYaml . | nindent 8 }}
