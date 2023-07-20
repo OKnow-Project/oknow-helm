@@ -14,6 +14,12 @@ image:
 
 imagePullSecrets: []
 
+# Container开放的端口, 我们默认服务的service也开放这些端口
+ports:
+- name: http
+  containerPort: 80
+  protocol: TCP
+
 serviceAccount:
   # Specifies whether a service account should be created
   create: false
@@ -38,8 +44,11 @@ securityContext: {}
 
 service:
   type: ClusterIP
-  port: 80
-
+  ports:
+  - name: http
+    port: 80
+    targetPort: http
+    protocol: TCP
 resources: {}
   # We usually recommend not to specify default resources and to leave this as a conscious
   # choice for the user. This also increases chances charts run on environments with little
