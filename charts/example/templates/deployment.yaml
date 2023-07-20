@@ -1,16 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: "{{ .Values.appName }}-deployment"
+  name: {{ include "example.fullname" . }}
   labels:
-    {{- include "deployment-svc.labels" . | nindent 4 }}
+    {{- include "example.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      {{- include "deployment-svc.selectorLabels" . | nindent 6 }}
+      {{- include "example.selectorLabels" . | nindent 6 }}
   template:
     metadata:
       {{- with .Values.podAnnotations }}
@@ -18,13 +18,13 @@ spec:
         {{- toYaml . | nindent 8 }}
       {{- end }}
       labels:
-        {{- include "deployment-svc.selectorLabels" . | nindent 8 }}
+        {{- include "example.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      serviceAccountName: {{ include "deployment-svc.serviceAccountName" . }}
+      serviceAccountName: {{ include "example.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
@@ -59,10 +59,3 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.pvc.enabled -}}
-      volumes:
-      - name: "{{ .Values.appName }}-storage" 
-        persistentVolumeClaim:
-          claimName: {{ .Values.pvc.name }} 
-      {{- end }}
-      
