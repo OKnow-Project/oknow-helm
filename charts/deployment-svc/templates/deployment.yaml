@@ -29,13 +29,11 @@ spec:
         - name: {{ .Values.appName }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
-          {{- with .Values.ports }}
           ports:
-            {{- toYaml . | nindent 12 }}
-          {{- end }}
+            {{- toYaml .Values.ports | nindent 12 }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
-          {{- if .Values.pvc.enabled -}}
+          {{- if .Values.pvc.enabled }}
           volumeMounts:
           - name: "{{ .Values.appName }}-storage" 
             mountPath: {{ .Values.pvc.mountPath }}
@@ -52,7 +50,7 @@ spec:
       tolerations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
-      {{- if .Values.pvc.enabled -}}
+      {{- if .Values.pvc.enabled }}
       volumes:
       - name: "{{ .Values.appName }}-storage" 
         persistentVolumeClaim:

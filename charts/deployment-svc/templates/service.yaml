@@ -6,9 +6,7 @@ metadata:
     {{- include "deployment-svc.labels" . | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
-  {{- with .Values.service.ports }}
   ports:
-    {{- toYaml . | nindent 4 }}
-  {{- end }}
+    {{- toYaml .Values.service.ports | nindent 4 }}
   selector:
     {{- include "deployment-svc.selectorLabels" . | nindent 4 }}
