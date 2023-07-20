@@ -26,7 +26,7 @@ spec:
       {{- end }}
       serviceAccountName: {{ include "deployment-svc.serviceAccountName" . }}
       containers:
-        - name: {{ .Chart.Name }}
+        - name: {{ .Values.appName }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
           {{- with .Values.ports }}
